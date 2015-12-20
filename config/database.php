@@ -54,7 +54,7 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'cambria83-larify-2214500'),
+            'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE', 'c9'),
             'username'  => env('DB_USERNAME', 'cambria83'),
             'password'  => env('DB_PASSWORD', ''),
@@ -62,6 +62,7 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
+            'port'      => '3306',
         ],
 
         'pgsql' => [

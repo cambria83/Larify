@@ -17,3 +17,8 @@ Route::get('/', function () {
 
 Route::get('spotify', 'SpotifyController@index');
 Route::get('/spotify/delete/{trackuri}', 'SpotifyController@delete');
+
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+    ]);

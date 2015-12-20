@@ -1,3 +1,9 @@
+body {
+  background: #FFF; }
+
+.top-bar, .top-bar ul {
+  background-color: #ADBCBF; }
+
 .container {
   padding: 2%; }
 

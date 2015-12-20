@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\Auth\LoginRequest;
+
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -22,14 +26,17 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    
+ 
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Guard $auth)
     {
+        $this->auth = $auth;
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -43,7 +50,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'username' => 'required|username|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -58,8 +65,28 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'email' => $data['username'],
             'password' => bcrypt($data['password']),
+        ]);
+    }
+    
+    public function postLogin(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required', 'password' => 'required',
+        ]);
+        
+        $credentials = $request->only('username', 'password');
+        
+        if ($this->auth->attempt($credentials, $request->has('remember')) )
+        {
+            return redirect()->intended($this->redirectPath());
+        }
+        
+        return redirect('auth/login')
+        ->withInput($request->only('username'))
+        ->withErrors([
+            'username' => 'These credentials do not match our records',
         ]);
     }
 }
