@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        <title>Larify</title>
+        
+        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.0.5/foundation.min.css">
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
@@ -17,17 +20,7 @@
                 display: table;
                 font-weight: 300;
                 font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
+                color:#333;
             }
 
             .title {
@@ -36,10 +29,35 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Neil Sherwood</div>
-            </div>
-        </div>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">Larify</li>
+      <li class="has-submenu">
+        <a href="/spotify/">The Playlist</a>
+        <ul class="submenu menu vertical" data-submenu>
+          <li><a href="#">One</a></li>
+          <li><a href="#">Two</a></li>
+          <li><a href="#">Three</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Rules</a></li>
+      <li><a href="/account/">My Account</a></li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+
+                @yield('content')
+</div>
+
     </body>
 </html>

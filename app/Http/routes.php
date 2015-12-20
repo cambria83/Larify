@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('spotify', 'SpotifyController@index');
+Route::get('/spotify/delete/{trackuri}', 'SpotifyController@delete');

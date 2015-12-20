@@ -1,0 +1,199 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/bin/node',
+1 verbose cli   '/mnt/shared/sbin/npm',
+1 verbose cli   'link',
+1 verbose cli   'gulp' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.28
+4 verbose install where,what [ '/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib',
+4 verbose install   [ 'gulp' ] ]
+5 verbose cache add [ 'gulp', null ]
+6 verbose cache add name=undefined spec="gulp" args=["gulp",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'gulp',
+7 verbose parsed url   path: 'gulp',
+7 verbose parsed url   href: 'gulp' }
+8 silly lockFile 9750c68d-gulp gulp
+9 verbose lock gulp /home/ubuntu/.npm/9750c68d-gulp.lock
+10 silly lockFile 9750c68d-gulp gulp
+11 silly lockFile 9750c68d-gulp gulp
+12 verbose addNamed [ 'gulp', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile 72f4391e-gulp gulp@
+15 verbose lock gulp@ /home/ubuntu/.npm/72f4391e-gulp.lock
+16 silly addNameRange { name: 'gulp', range: '*', hasData: false }
+17 verbose url raw gulp
+18 verbose url resolving [ 'https://registry.npmjs.org/', './gulp' ]
+19 verbose url resolved https://registry.npmjs.org/gulp
+20 info trying registry request attempt 1 at 01:57:23
+21 verbose etag "1OZKOJZ3IZ8ZJA4EDDVY49FGT"
+22 http GET https://registry.npmjs.org/gulp
+23 http 304 https://registry.npmjs.org/gulp
+24 silly registry.get cb [ 304,
+24 silly registry.get   { date: 'Sun, 20 Dec 2015 01:57:23 GMT',
+24 silly registry.get     via: '1.1 varnish',
+24 silly registry.get     'cache-control': 'max-age=300',
+24 silly registry.get     etag: '"1OZKOJZ3IZ8ZJA4EDDVY49FGT"',
+24 silly registry.get     age: '230',
+24 silly registry.get     connection: 'keep-alive',
+24 silly registry.get     'x-served-by': 'cache-lcy1120-LCY',
+24 silly registry.get     'x-cache': 'HIT',
+24 silly registry.get     'x-cache-hits': '2',
+24 silly registry.get     'x-timer': 'S1450576643.724958,VS0,VE0',
+24 silly registry.get     vary: 'Accept' } ]
+25 verbose etag gulp from cache
+26 silly addNameRange number 2 { name: 'gulp', range: '*', hasData: true }
+27 silly addNameRange versions [ 'gulp',
+27 silly addNameRange   [ '0.0.1',
+27 silly addNameRange     '0.0.2',
+27 silly addNameRange     '0.0.3',
+27 silly addNameRange     '0.0.4',
+27 silly addNameRange     '0.0.5',
+27 silly addNameRange     '0.0.7',
+27 silly addNameRange     '0.0.8',
+27 silly addNameRange     '0.0.9',
+27 silly addNameRange     '0.1.0',
+27 silly addNameRange     '0.2.0',
+27 silly addNameRange     '1.0.0',
+27 silly addNameRange     '1.1.0',
+27 silly addNameRange     '1.2.0',
+27 silly addNameRange     '1.2.1',
+27 silly addNameRange     '2.0.0',
+27 silly addNameRange     '2.0.1',
+27 silly addNameRange     '2.1.0',
+27 silly addNameRange     '2.2.0',
+27 silly addNameRange     '2.3.0',
+27 silly addNameRange     '2.4.0',
+27 silly addNameRange     '2.4.1',
+27 silly addNameRange     '2.6.0',
+27 silly addNameRange     '2.6.1',
+27 silly addNameRange     '2.7.0',
+27 silly addNameRange     '3.0.0',
+27 silly addNameRange     '3.1.1',
+27 silly addNameRange     '3.1.2',
+27 silly addNameRange     '3.1.3',
+27 silly addNameRange     '3.1.4',
+27 silly addNameRange     '3.2.0',
+27 silly addNameRange     '3.2.1',
+27 silly addNameRange     '3.2.2',
+27 silly addNameRange     '3.2.3',
+27 silly addNameRange     '3.2.4',
+27 silly addNameRange     '3.2.5',
+27 silly addNameRange     '3.3.0',
+27 silly addNameRange     '3.3.1',
+27 silly addNameRange     '3.3.2',
+27 silly addNameRange     '3.3.4',
+27 silly addNameRange     '3.4.0',
+27 silly addNameRange     '3.5.0',
+27 silly addNameRange     '3.5.1',
+27 silly addNameRange     '3.5.2',
+27 silly addNameRange     '3.5.5',
+27 silly addNameRange     '3.5.6',
+27 silly addNameRange     '3.6.0',
+27 silly addNameRange     '3.6.1',
+27 silly addNameRange     '3.6.2',
+27 silly addNameRange     '3.7.0',
+27 silly addNameRange     '3.8.0',
+27 silly addNameRange     '3.8.1',
+27 silly addNameRange     '3.8.2',
+27 silly addNameRange     '3.8.3',
+27 silly addNameRange     '3.8.4',
+27 silly addNameRange     '3.8.5',
+27 silly addNameRange     '3.8.6',
+27 silly addNameRange     '3.8.7',
+27 silly addNameRange     '3.8.8',
+27 silly addNameRange     '3.8.9',
+27 silly addNameRange     '3.8.10',
+27 silly addNameRange     '3.8.11',
+27 silly addNameRange     '3.9.0' ] ]
+28 verbose addNamed [ 'gulp', '3.9.0' ]
+29 verbose addNamed [ '3.9.0', '3.9.0' ]
+30 silly lockFile c2697a61-gulp-3-9-0 gulp@3.9.0
+31 verbose lock gulp@3.9.0 /home/ubuntu/.npm/c2697a61-gulp-3-9-0.lock
+32 silly lockFile c2697a61-gulp-3-9-0 gulp@3.9.0
+33 silly lockFile c2697a61-gulp-3-9-0 gulp@3.9.0
+34 silly lockFile 72f4391e-gulp gulp@
+35 silly lockFile 72f4391e-gulp gulp@
+36 silly resolved [ { name: 'gulp',
+36 silly resolved     description: 'The streaming build system',
+36 silly resolved     version: '3.9.0',
+36 silly resolved     homepage: 'http://gulpjs.com',
+36 silly resolved     repository: { type: 'git', url: 'git://github.com/gulpjs/gulp' },
+36 silly resolved     author:
+36 silly resolved      { name: 'Fractal',
+36 silly resolved        email: 'contact@wearefractal.com',
+36 silly resolved        url: 'http://wearefractal.com/' },
+36 silly resolved     tags: [ 'build', 'stream', 'system', 'make', 'tool', 'asset', 'pipeline' ],
+36 silly resolved     files: [ 'index.js', 'lib', 'bin', 'completion' ],
+36 silly resolved     bin: { gulp: './bin/gulp.js' },
+36 silly resolved     man: [ 'gulp.1' ],
+36 silly resolved     dependencies:
+36 silly resolved      { archy: '^1.0.0',
+36 silly resolved        chalk: '^1.0.0',
+36 silly resolved        deprecated: '^0.0.1',
+36 silly resolved        'gulp-util': '^3.0.0',
+36 silly resolved        interpret: '^0.6.2',
+36 silly resolved        liftoff: '^2.1.0',
+36 silly resolved        minimist: '^1.1.0',
+36 silly resolved        orchestrator: '^0.3.0',
+36 silly resolved        'pretty-hrtime': '^1.0.0',
+36 silly resolved        semver: '^4.1.0',
+36 silly resolved        tildify: '^1.0.0',
+36 silly resolved        v8flags: '^2.0.2',
+36 silly resolved        'vinyl-fs': '^0.3.0' },
+36 silly resolved     devDependencies:
+36 silly resolved      { coveralls: '^2.7.0',
+36 silly resolved        'graceful-fs': '^3.0.0',
+36 silly resolved        istanbul: '^0.3.0',
+36 silly resolved        jscs: '~1.12.0',
+36 silly resolved        jshint: '^2.5.0',
+36 silly resolved        'jshint-stylish': '^1.0.0',
+36 silly resolved        'marked-man': '^0.1.3',
+36 silly resolved        mkdirp: '^0.5.0',
+36 silly resolved        mocha: '^2.0.1',
+36 silly resolved        'mocha-lcov-reporter': '^0.0.1',
+36 silly resolved        q: '^1.0.0',
+36 silly resolved        rimraf: '^2.2.5',
+36 silly resolved        should: '^5.0.1' },
+36 silly resolved     scripts:
+36 silly resolved      { prepublish: 'marked-man --name gulp docs/CLI.md > gulp.1',
+36 silly resolved        lint: 'jshint lib bin test index.js --reporter node_modules/jshint-stylish/stylish.js --exclude node_modules && jscs lib bin test index.js',
+36 silly resolved        test: 'npm run-script lint && mocha --reporter spec',
+36 silly resolved        coveralls: 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage' },
+36 silly resolved     engines: { node: '>= 0.9' },
+36 silly resolved     license: 'MIT',
+36 silly resolved     readme: '<p align="center">\n  <a href="http://gulpjs.com">\n    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">\n  </a>\n</p>\n\n# gulp\n**The streaming build system**\n\n[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Support us][gittip-image]][gittip-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]\n\n## Like what we do?\n\n[Support us via Gratipay](https://gratipay.com/WeAreFractal/)\n\n## Documentation\n\nFor a Getting started guide, API docs, recipes, making a plugin, etc. see the [documentation page](/docs/README.md)!\n\n## Sample `gulpfile.js`\n\nThis file is just a quick sample to give you a taste of what gulp does.\n\n```js\nvar gulp = require(\'gulp\');\nvar coffee = require(\'gulp-coffee\');\nvar concat = require(\'gulp-concat\');\nvar uglify = require(\'gulp-uglify\');\nvar imagemin = require(\'gulp-imagemin\');\nvar sourcemaps = require(\'gulp-sourcemaps\');\nvar del = require(\'del\');\n\nvar paths = {\n  scripts: [\'client/js/**/*.coffee\', \'!client/external/**/*.coffee\'],\n  images: \'client/img/**/*\'\n};\n\n// Not all tasks need to use streams\n// A gulpfile is just another node program and you can use all packages available on npm\ngulp.task(\'clean\', function(cb) {\n  // You can use multiple globbing patterns as you would with `gulp.src`\n  del([\'build\'], cb);\n});\n\ngulp.task(\'scripts\', [\'clean\'], function() {\n  // Minify and copy all JavaScript (except vendor scripts)\n  // with sourcemaps all the way down\n  return gulp.src(paths.scripts)\n    .pipe(sourcemaps.init())\n      .pipe(coffee())\n      .pipe(uglify())\n      .pipe(concat(\'all.min.js\'))\n    .pipe(sourcemaps.write())\n    .pipe(gulp.dest(\'build/js\'));\n});\n\n// Copy all static images\ngulp.task(\'images\', [\'clean\'], function() {\n  return gulp.src(paths.images)\n    // Pass in options to the task\n    .pipe(imagemin({optimizationLevel: 5}))\n    .pipe(gulp.dest(\'build/img\'));\n});\n\n// Rerun the task when a file changes\ngulp.task(\'watch\', function() {\n  gulp.watch(paths.scripts, [\'scripts\']);\n  gulp.watch(paths.images, [\'images\']);\n});\n\n// The default task (called when you run `gulp` from cli)\ngulp.task(\'default\', [\'watch\', \'scripts\', \'images\']);\n```\n\n## Incremental Builds\n\nWe recommend these plugins:\n\n- [gulp-changed](https://github.com/sindresorhus/gulp-changed) - only pass through changed files\n- [gulp-cached](https://github.com/wearefractal/gulp-cached) - in-memory file cache, not for operation on sets of files\n- [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached\n- [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest\n\n## Want to contribute?\n\nAnyone can help make this project better - check out the [Contributing guide](/CONTRIBUTING.md)!\n\n\n[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wearefractal/gulp/trend.png)](https://bitdeli.com/free "Bitdeli Badge")\n\n[gittip-url]: https://www.gittip.com/WeAreFractal/\n[gittip-image]: http://img.shields.io/gittip/WeAreFractal.svg\n\n[downloads-image]: http://img.shields.io/npm/dm/gulp.svg\n[npm-url]: https://npmjs.org/package/gulp\n[npm-image]: http://img.shields.io/npm/v/gulp.svg\n\n[travis-url]: https://travis-ci.org/gulpjs/gulp\n[travis-image]: http://img.shields.io/travis/gulpjs/gulp.svg\n\n[coveralls-url]: https://coveralls.io/r/gulpjs/gulp\n[coveralls-image]: http://img.shields.io/coveralls/gulpjs/gulp/master.svg\n\n[gitter-url]: https://gitter.im/gulpjs/gulp\n[gitter-image]: https://badges.gitter.im/gulpjs/gulp.png\n',
+36 silly resolved     readmeFilename: 'README.md',
+36 silly resolved     bugs: { url: 'https://github.com/gulpjs/gulp/issues' },
+36 silly resolved     _id: 'gulp@3.9.0',
+36 silly resolved     _from: 'gulp@' } ]
+37 info install gulp@3.9.0 into /nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib
+38 info installOne gulp@3.9.0
+39 info /nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp unbuild
+40 info /nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp unbuild
+41 error error rolling back Error: EROFS, unlink '/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp'
+41 error error rolling back  gulp@3.9.0 { [Error: EROFS, unlink '/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp']
+41 error error rolling back   errno: 56,
+41 error error rolling back   code: 'EROFS',
+41 error error rolling back   path: '/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp' }
+42 error Error: EROFS, unlink '/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp'
+43 error If you need help, you may report this *entire* log,
+43 error including the npm and node versions, at:
+43 error     <http://github.com/npm/npm/issues>
+44 error System Linux 4.2.0-c9
+45 error command "/nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/bin/node" "/mnt/shared/sbin/npm" "link" "gulp"
+46 error cwd /home/ubuntu/workspace/larify
+47 error node -v v0.10.28
+48 error npm -v 1.4.3
+49 error path /nix/store/a5ibcbcsm473kdr75kj4gpsr28ndnknp-nodejs-0.10.26/lib/node_modules/gulp
+50 error code EROFS
+51 error errno 56
+52 verbose exit [ 56, true ]
