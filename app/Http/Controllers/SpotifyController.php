@@ -14,6 +14,7 @@ class SpotifyController extends Controller
         
         // The Service Index
         
+        
         $spotify = new \App\Services\Spotify;
         $auth = $spotify->get_playlist();
         

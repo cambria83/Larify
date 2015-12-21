@@ -11,13 +11,22 @@
 |
 */
 
+// Our home route
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth']], function () {
+    
+    // For all routes that require authentication add here
+    
 Route::get('spotify', 'SpotifyController@index');
 Route::get('/spotify/delete/{trackuri}', 'SpotifyController@delete');
 
+});
+
+
+// Auth routes
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
