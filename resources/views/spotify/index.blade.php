@@ -2,6 +2,8 @@
 
 @section('content')
 
+<h1>The Playlist</h1>
+
 <table>
     <thead>
         <tr>

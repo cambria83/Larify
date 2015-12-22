@@ -23,6 +23,8 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('spotify', 'SpotifyController@index');
 Route::get('/spotify/delete/{trackuri}', 'SpotifyController@delete');
 
+Route::get('account', 'AccountController@index');
+
 });
 
 

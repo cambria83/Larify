@@ -46,13 +46,16 @@
         </ul>
       </li>
       <li><a href="#">Rules</a></li>
-      <li><a href="/account/">My Account</a></li>
+      <li><a href="/account">My Account</a></li>
     </ul>
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-      <li><input type="search" placeholder="Search"></li>
-      <li><button type="button" class="button">Search</button></li>
+      <li><a href="/auth/login">Login</a></li>
+      <li><a href="/auth/logout">Logout</a></li>
+
+      <!--<li><input type="search" placeholder="Search"></li>-->
+      <!--<li><button type="button" class="button">Search</button></li>-->
     </ul>
   </div>
 </div>

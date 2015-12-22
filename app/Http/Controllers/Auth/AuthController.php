@@ -110,7 +110,14 @@ class AuthController extends Controller
 
        Auth::login($this->create($request->all()));
 
-       return redirect($this->redirectPath());
+       return redirect('/');
    }
+   
+   public function getLogout()
+    {
+        $this->auth->logout();
+        \Session::flush();
+        return redirect('/');
+    }
     
 }
