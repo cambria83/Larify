@@ -39,12 +39,8 @@
       <li class="menu-text">Larify</li>
       <li class="has-submenu">
         <a href="/spotify">The Playlist</a>
-        <ul class="submenu menu vertical" data-submenu>
-          <li><a href="#">One</a></li>
-          <li><a href="#">Two</a></li>
-          <li><a href="#">Three</a></li>
-        </ul>
       </li>
+      <li><a href="/spotify/search">Add Track</a></li>
       <li><a href="#">Rules</a></li>
       <li><a href="/account">My Account</a></li>
     </ul>

@@ -22,7 +22,6 @@ class SpotifyController extends Controller
         
         $array = $auth['tracks']['items'];
         
-        
         return view('spotify.index', compact('array'));
         
     }
@@ -31,6 +30,31 @@ class SpotifyController extends Controller
     
         $spotify = new \App\Services\Spotify;
         $result = $spotify->login2();
+        
+    }
+    
+    function search(Request $data) {
+        
+        if($data->artist != '') {
+            $spotify = new \App\Services\Spotify;
+            $result = $spotify->search_track($data);
+            $array = $result['tracks']['items'];
+            } else {
+            $array = [];
+        }
+        
+        return view('spotify.search', compact('array'));
+
+    }
+    
+    function add($uri) {
+        
+        // Add to playlist
+        
+        $spotify = new \App\Services\Spotify;
+        $result = $spotify->add_track($uri);
+        
+            print_r($result);
         
     }
     

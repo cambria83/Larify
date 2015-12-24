@@ -11,7 +11,7 @@ class Spotify {
     protected $clientSecret = 'c1ee3c7ff4d74e1a88952d84f89d50d7';
 
     
-    function auth($post, $url, $header, $method) {
+    function call($post, $url, $header, $method) {
         
         // Handle POST, PUT, DELETE etc.
         $ch = curl_init();
@@ -48,7 +48,7 @@ class Spotify {
 
  function login() {
      
-     // Authenticate with Spotify
+     // Basic Authenticate with Spotify
      
      $url = 'https://accounts.spotify.com/api/token';
      $post = 'grant_type=client_credentials';
@@ -59,11 +59,13 @@ class Spotify {
             "Authorization: Basic " . base64_encode($this->clientID . ":" . $this->clientSecret));
 
      
-     $result = $this->auth($post, $url, $headers, 'POST');
+     $result = $this->call($post, $url, $headers, 'POST');
      return $result;
  }
  
  function login2() {
+     
+     // Authentication with second method
      
      // Check first for things that could be wrong
   if (strcmp(\Session::get('login_key'), \Input::get('state')) != 0) {
@@ -98,13 +100,10 @@ class Spotify {
      
  }
  
- function auth2() {
-     
-     // Method 2 for auth (User Auth.)
-     
-    //  $url = 'https://accounts.spotify.com/authorize/?client_id=ac705b84f9a948c48874b2c0fd4d5dd9&response_type=code&redirect_uri=https%3A%2F%2Flarify-cambria83.c9users.io%2Fspotify%2F&scope=playlist-modify-public&show_dialog=false';
-
- $scopes = 'playlist-modify-public playlist-modify-private playlist-read-private user-read-email';
+ function auth() {
+  
+  // Set the perissions required for Larify   
+  $scopes = 'playlist-modify-public playlist-modify-private playlist-read-private user-read-email';
 
   $params = array(
     'client_id' => 'ac705b84f9a948c48874b2c0fd4d5dd9',
@@ -117,10 +116,32 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
      
  }
  
+ function search_track($data) {
+     
+     // Search for tracks to add to the playlist
+     
+    $params = array(
+        "q" => "track:" . $data['track'] . " artist:" . $data['artist'],
+        "type" => "track",
+        );
+     
+     $url = 'https://api.spotify.com/v1/search?' . http_build_query($params);
+     
+          $headers = array(
+            "Accept: */*",
+            "Content-Type: application/x-www-form-urlencoded",
+            "User-Agent: runscope/0.1",
+            );
+     
+    $result = $this->call(null, $url, $headers, 'GET');
+     
+     return $result;
+    
+ }
+ 
  function get_playlist() {
      
      // Gets the playlist - So we can see what's on it!
-     
      $token = $this->login();
      
      $url = "https://api.spotify.com/v1/users/cambria83/playlists/5tuAzZO2CQDxDwr7PbQARU?fields=tracks.items(added_at,added_by.id)';";
@@ -130,14 +151,38 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
             "User-Agent: runscope/0.1",
             "Authorization: Bearer " . $token['access_token']);
             
-    $result = $this->auth(null, $url, $headers, 'GET');
+    $result = $this->call(null, $url, $headers, 'GET');
     return $result;
+     
+ }
+ 
+ function add_track($trackURI) {
+     
+     // The Add action requires extra Auth
+     $auth = $this->auth();
+     
+     $headerStr = "Authorization: Bearer ". \Session::get('access_token');
+     
+     $url = "https://api.spotify.com/v1/users/cambria83/playlists/5tuAzZO2CQDxDwr7PbQARU/tracks";
+     $post = json_encode(array("uris" => [$trackURI]));
+     $headers = array(
+            "Accept: */*",
+            "Content-Type: application/json",
+            "User-Agent: runscope/0.1",
+            $headerStr
+            );
+            
+    $result = $this->call($post, $url, $headers, 'POST');
+    
+    return $result;
+     
      
  }
  
  function delete_track($trackURI) {
      
-     $auth = $this->auth2();
+     // The delete action requires extra Auth
+     $auth = $this->auth();
      
      $headerStr = "Authorization: Bearer ". \Session::get('access_token');
      
@@ -150,7 +195,7 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
             $headerStr
             );
             
-    $result = $this->auth($post, $url, $headers, 'DELETE');
+    $result = $this->call($post, $url, $headers, 'DELETE');
      
      
  }
