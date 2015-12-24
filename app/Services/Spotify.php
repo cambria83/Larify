@@ -65,17 +65,55 @@ class Spotify {
  
  function login2() {
      
+     // Check first for things that could be wrong
+  if (strcmp(\Session::get('login_key'), \Input::get('state')) != 0) {
+    return "Incorrect state. This request is invalid.";
+  } else if (!empty(\Input::get('error'))) {
+    return "Some kind of error occurred.";
+  }
+     
+     
+     $postUrl = 'https://accounts.spotify.com/api/token';
+  $params = array(
+    'grant_type' => 'authorization_code',
+    'code' => \Input::get('code'),
+    'redirect_uri' => 'https://larify-cambria83.c9users.io/spotify/auth/',
+    'client_id' => $this->clientID,
+    'client_secret' => $this->clientSecret,
+  );
+
+  // use key 'http' even if you send the request to https://...
+  $options = array(
+      'http' => array(
+          'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+          'method'  => 'POST',
+          'content' => http_build_query($params),
+      ),
+  );
+  $context  = stream_context_create($options);
+  $result = json_decode(file_get_contents($postUrl, false, $context));
+  
+    \Session::put('access_token', $result->access_token);
+  return \Redirect::to('/');
+     
+ }
+ 
+ function auth2() {
+     
      // Method 2 for auth (User Auth.)
      
-     $url = 'https://accounts.spotify.com/authorize?client_id=ac705b84f9a948c48874b2c0fd4d5dd9&response_type=code&redirect_uri=https%3A%2F%2Flarify-cambria83.c9users.io%2Fspotify%2F&scope=playlist-modify-private';
-    $headers = array(
-            "Accept: */*",
-            "Content-Type: application/x-www-form-urlencoded",
-            "User-Agent: runscope/0.1");
-    $result = $this->auth(null, $url, $headers, 'GET');
+    //  $url = 'https://accounts.spotify.com/authorize/?client_id=ac705b84f9a948c48874b2c0fd4d5dd9&response_type=code&redirect_uri=https%3A%2F%2Flarify-cambria83.c9users.io%2Fspotify%2F&scope=playlist-modify-public&show_dialog=false';
 
-    return $result;
-     
+ $scopes = 'playlist-modify-public playlist-modify-private playlist-read-private user-read-email';
+
+  $params = array(
+    'client_id' => 'ac705b84f9a948c48874b2c0fd4d5dd9',
+    'response_type' => 'code',
+    'redirect_uri' => 'https://larify-cambria83.c9users.io/spotify/auth/',
+    'scope' => $scopes,
+  );
+  
+return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_query($params));     
      
  }
  
@@ -99,20 +137,20 @@ class Spotify {
  
  function delete_track($trackURI) {
      
-     // Delete a track from the playlist on user request
-     $auth = $this->login2();
-     $token = $this->login();
+     $auth = $this->auth2();
+     
+     $headerStr = "Authorization: Bearer ". \Session::get('access_token');
      
      $url = "https://api.spotify.com/v1/users/cambria83/playlists/5tuAzZO2CQDxDwr7PbQARU/tracks";
-     $post = json_encode(array("tracks" => [array( "uri" => $trackURI)]));
+     $post = json_encode(array("tracks" => [array( "uri" => $trackURI )]));
      $headers = array(
             "Accept: */*",
             "Content-Type: application/json",
             "User-Agent: runscope/0.1",
-            "Authorization: Bearer " . $token['access_token']);
+            $headerStr
+            );
             
     $result = $this->auth($post, $url, $headers, 'DELETE');
-    return $auth;
      
      
  }

@@ -21,7 +21,8 @@ Route::group(['middleware' => ['auth']], function () {
     // For all routes that require authentication add here
     
 Route::get('spotify', 'SpotifyController@index');
-Route::get('/spotify/delete/{trackuri}', 'SpotifyController@delete');
+Route::get('/spotify/delete/{uri}', 'SpotifyController@delete');
+Route::get('/spotify/auth', 'SpotifyController@auth');
 
 Route::get('account', 'AccountController@index');
 

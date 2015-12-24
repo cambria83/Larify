@@ -27,13 +27,21 @@ class SpotifyController extends Controller
         
     }
     
-    function delete($uri) {
+    function auth() {
+    
+        $spotify = new \App\Services\Spotify;
+        $result = $spotify->login2();
+        
+    }
+    
+
+        function delete($uri) {
         
         // Handle delete requests
         
         $spotify = new \App\Services\Spotify;
         $result = $spotify->delete_track($uri);
         
-        print_r($result);
+            return \Redirect::to('/spotify');
     }
 }
