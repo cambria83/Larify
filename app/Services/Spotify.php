@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use \App\User;
+use \App\UserTracks;
+
 require '../vendor/autoload.php';
 
 class Spotify {
@@ -9,6 +12,12 @@ class Spotify {
     // Creds
     protected $clientID = 'ac705b84f9a948c48874b2c0fd4d5dd9';
     protected $clientSecret = 'c1ee3c7ff4d74e1a88952d84f89d50d7';
+    
+    public function __construct() {
+        
+        $this->user = \Auth::user();
+        
+    }
 
     
     function call($post, $url, $header, $method) {
@@ -63,7 +72,7 @@ class Spotify {
      return $result;
  }
  
- function login2() {
+ function login2($type) {
      
      // Authentication with second method
      
@@ -73,21 +82,27 @@ class Spotify {
   } else if (!empty(\Input::get('error'))) {
     return "Some kind of error occurred.";
   }
-     
+  
      
      $postUrl = 'https://accounts.spotify.com/api/token';
-  $params = array(
-    'grant_type' => 'authorization_code',
-    'code' => \Input::get('code'),
+    $params = array(
+    'grant_type' => $type,
     'redirect_uri' => 'https://larify-cambria83.c9users.io/spotify/auth/',
     'client_id' => $this->clientID,
     'client_secret' => $this->clientSecret,
   );
+  
+    if($type == 'refresh_token') {
+      $params['refresh_token'] = \Session::get('refresh_token');
+  } else {
+      $params['code'] = \Input::get('code');
+  }
+     
 
   // use key 'http' even if you send the request to https://...
   $options = array(
       'http' => array(
-          'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+          'header'  => "Content-type: application/x-www-form-urlencoded",
           'method'  => 'POST',
           'content' => http_build_query($params),
       ),
@@ -96,7 +111,8 @@ class Spotify {
   $result = json_decode(file_get_contents($postUrl, false, $context));
   
     \Session::put('access_token', $result->access_token);
-  return \Redirect::to('/');
+    \Session::put('refresh_token', $result->refresh_token);
+  return \Redirect::to('/spotify');
      
  }
  
@@ -110,6 +126,7 @@ class Spotify {
     'response_type' => 'code',
     'redirect_uri' => 'https://larify-cambria83.c9users.io/spotify/auth/',
     'scope' => $scopes,
+    'show_dialog' =>false,
   );
   
 return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_query($params));     
@@ -158,10 +175,7 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
  
  function add_track($trackURI) {
      
-     // The Add action requires extra Auth
-     $auth = $this->auth();
-     
-     $headerStr = "Authorization: Bearer ". \Session::get('access_token');
+    $headerStr = "Authorization: Bearer ". \Session::get('access_token');
      
      $url = "https://api.spotify.com/v1/users/cambria83/playlists/5tuAzZO2CQDxDwr7PbQARU/tracks";
      $post = json_encode(array("uris" => [$trackURI]));
@@ -174,17 +188,53 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
             
     $result = $this->call($post, $url, $headers, 'POST');
     
+        if(array_key_exists('error', $result) && $result['error']['status'] == 401) {
+        \Session::forget('access_token');
+        $this->login2('refresh_token');
+        $result2 = $this->delete_track($trackURI);
+        return $result2;
+    }
+    
+    // Add this to the user tracks table
+    $usertrack = UserTracks::firstOrNew(array('user_id' => $this->user->id));
+    // Get the current tracks
+    $currentTracks = unserialize($usertrack->tracks);
+    
+    // Check this user isn't exceeding track limit
+    if(count($currentTracks) <= 3) {
+    
+    if($currentTracks) {
+    $currentTracks[] = $trackURI;
+    } else {
+      $currentTracks = array($trackURI);  
+    }
+    
+    $savedTracks = serialize($currentTracks);
+    
+    $usertrack->tracks = $savedTracks;
+    $usertrack->timestamps = false;
+    $usertrack->save();
+    }
+    // User has reached maximum amount of allowed tracks
+    else {
+        return 'Reached Limit';
+    }
+    
+    
     return $result;
-     
      
  }
  
  function delete_track($trackURI) {
      
-     // The delete action requires extra Auth
-     $auth = $this->auth();
      
-     $headerStr = "Authorization: Bearer ". \Session::get('access_token');
+     
+     // The delete action requires extra Auth
+    //  $auth = $this->auth();
+    
+    $auth = $this->auth();
+     
+    $headerStr = "Authorization: Bearer ". \Session::get('access_token');
      
      $url = "https://api.spotify.com/v1/users/cambria83/playlists/5tuAzZO2CQDxDwr7PbQARU/tracks";
      $post = json_encode(array("tracks" => [array( "uri" => $trackURI )]));
@@ -196,7 +246,38 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
             );
             
     $result = $this->call($post, $url, $headers, 'DELETE');
-     
+    
+    if(array_key_exists('error', $result) && $result['error']['status'] == 401) {
+        \Session::forget('access_token');
+        $this->login2('refresh_token');
+        $result2 = $this->delete_track($trackURI);
+        return $result2;
+    }
+    
+     // Delete this to the user tracks table
+    $usertrack = UserTracks::where('user_id', $this->user->id)->first();
+    // Get the current tracks
+    $currentTracks = unserialize($usertrack->tracks);
+
+    
+    if($currentTracks) {
+    // Search the array for the track to delete & delete it!s
+      if(($key = array_search($trackURI, $currentTracks)) !== false) {
+        unset($currentTracks[$key]);
+      }
+    } else {
+      return $result; 
+    }
+    
+    $savedTracks = serialize($currentTracks);
+    
+    $usertrack->tracks = $savedTracks;
+    $usertrack->timestamps = false;
+    $usertrack->save();
+    
+    
+    return $result;
+    
      
  }
 

@@ -12,6 +12,17 @@ class SpotifyController extends Controller
 
     function index() {
         
+        $access = \Session::get('access_token');
+        
+        if($access == '') {
+            
+        $spotify = new \App\Services\Spotify;
+        $result = $spotify->auth();
+        
+        print_r($result);
+            
+        }
+        
         // The Service Index
         
         
@@ -29,7 +40,10 @@ class SpotifyController extends Controller
     function auth() {
     
         $spotify = new \App\Services\Spotify;
-        $result = $spotify->login2();
+        $result = $spotify->login2('authorization_code');
+        
+        return $result;
+        
         
     }
     
@@ -53,8 +67,9 @@ class SpotifyController extends Controller
         
         $spotify = new \App\Services\Spotify;
         $result = $spotify->add_track($uri);
-        
-            print_r($result);
+
+            print_r($result);        
+            // return \Redirect::to('/spotify');
         
     }
     
@@ -66,6 +81,7 @@ class SpotifyController extends Controller
         $spotify = new \App\Services\Spotify;
         $result = $spotify->delete_track($uri);
         
+            // print_r($result);
             return \Redirect::to('/spotify');
     }
 }
