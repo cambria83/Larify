@@ -8,6 +8,10 @@
         <link rel="stylesheet" href="/css/app.css">
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
+
 
         <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet" type="text/css">
 
@@ -60,6 +64,5 @@
 
                 @yield('content')
 </div>
-
     </body>
 </html>

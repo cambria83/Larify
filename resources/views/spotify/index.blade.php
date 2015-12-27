@@ -33,4 +33,11 @@
         @endforeach
 </table>
 
+@if ($message)
+<script>
+  var message = '<?= $message ?>';
+  var n = noty({text: message, theme: 'relax', timeout: 3000, type: 'error' });
+</script>
+@endif
+
 @stop

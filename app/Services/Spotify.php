@@ -186,22 +186,15 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
             $headerStr
             );
             
-    $result = $this->call($post, $url, $headers, 'POST');
-    
-        if(array_key_exists('error', $result) && $result['error']['status'] == 401) {
-        \Session::forget('access_token');
-        $this->login2('refresh_token');
-        $result2 = $this->delete_track($trackURI);
-        return $result2;
-    }
     
     // Add this to the user tracks table
     $usertrack = UserTracks::firstOrNew(array('user_id' => $this->user->id));
     // Get the current tracks
     $currentTracks = unserialize($usertrack->tracks);
+
     
     // Check this user isn't exceeding track limit
-    if(count($currentTracks) <= 3) {
+    if(count($currentTracks) <= 4 || !$currentTracks) {
     
     if($currentTracks) {
     $currentTracks[] = $trackURI;
@@ -214,12 +207,20 @@ return \Redirect::to('https://accounts.spotify.com/authorize?' . http_build_quer
     $usertrack->tracks = $savedTracks;
     $usertrack->timestamps = false;
     $usertrack->save();
+    
+        $result = $this->call($post, $url, $headers, 'POST');
+    
+        if(array_key_exists('error', $result) && $result['error']['status'] == 401) {
+        \Session::forget('access_token');
+        $this->login2('refresh_token');
+        $result2 = $this->delete_track($trackURI);
+        return $result2;
+     }
     }
     // User has reached maximum amount of allowed tracks
     else {
-        return 'Reached Limit';
+        return 'limit reached';
     }
-    
     
     return $result;
      

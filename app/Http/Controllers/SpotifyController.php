@@ -13,6 +13,7 @@ class SpotifyController extends Controller
     function index() {
         
         $access = \Session::get('access_token');
+        $message = \Session::get('message');
         
         if($access == '') {
             
@@ -33,7 +34,7 @@ class SpotifyController extends Controller
         
         $array = $auth['tracks']['items'];
         
-        return view('spotify.index', compact('array'));
+        return view('spotify.index', compact('array', 'message'));
         
     }
     
@@ -67,9 +68,13 @@ class SpotifyController extends Controller
         
         $spotify = new \App\Services\Spotify;
         $result = $spotify->add_track($uri);
+        
+        if($result == 'limit reached') {
+         $message = 'You have reached your allowed track limit';
+        }
 
-            print_r($result);        
-            // return \Redirect::to('/spotify');
+            // print_r($result);        
+            return \Redirect::to('/spotify')->with('message', $message);
         
     }
     
